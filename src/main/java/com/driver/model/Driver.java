@@ -1,94 +1,49 @@
 package com.driver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.driver.model.Cab;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "driver")
+@Table(name = "Drivers")
 public class Driver {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private int DriverId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int driverId;
 
     private String mobile;
 
-    @Column(columnDefinition = "TINYINT(1)")
-    private boolean available;
+    private String password;
 
-    public int getDriverId() {
-        return DriverId;
-    }
+    @OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
+    private Cab cab;
 
-    public Driver(int driverId, String mobile, boolean available, Admin admin, Cab cab, TripBooking trip, String password) {
-        DriverId = driverId;
+
+    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookingList=new ArrayList<>();
+
+
+    public Driver(String mobile, String password) {
         this.mobile = mobile;
-        this.available = available;
-        this.admin = admin;
-        this.cab = cab;
-        this.trip = trip;
         this.password = password;
     }
 
-    public void setDriverId(int driverId) {
-        DriverId = driverId;
-    }
-
-    public TripBooking getTrip() {
-        return trip;
-    }
-
-    public void setTrip(TripBooking trip) {
-        this.trip = trip;
-    }
-
-    @ManyToOne
-      @JoinColumn
-      @JsonIgnoreProperties("drivers")
-      private Admin admin;
-
-      @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
-      @JsonIgnoreProperties("driver")
-      private Cab cab;
-
-      @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
-      @JsonIgnoreProperties("driver")
-      private TripBooking trip;
-
     public Driver() {
     }
-    private String password;
 
-
-
-    public boolean isAvailable() {
-        return available;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
-
-    public Cab getCab() {
-        return cab;
-    }
-
-    public void setCab(Cab cab) {
-        this.cab = cab;
-    }
-
 
     public String getMobile() {
         return mobile;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
     }
 
     public void setMobile(String mobile) {
@@ -101,5 +56,21 @@ public class Driver {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Cab getCab() {
+        return cab;
+    }
+
+    public void setCab(Cab cab) {
+        this.cab = cab;
+    }
+
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
     }
 }

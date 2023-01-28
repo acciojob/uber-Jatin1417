@@ -19,7 +19,7 @@ public class DriverController {
 		driverService.register(mobile, password);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping(value = "/delete")
 	public void deleteDriver(@RequestParam Integer driverId){
 		driverService.removeDriver(driverId);

@@ -1,42 +1,30 @@
 package com.driver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cab")
 public class Cab {
-    public int getPerKmRate() {
-        return PerKmRate;
-    }
 
-    public Cab(int id, Driver driver, int perKmRate, Boolean available) {
-        this.id = id;
-        this.driver = driver;
-        PerKmRate = perKmRate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    private int perKmRate;
+
+    @Column(columnDefinition = "TINYINT(1)")
+    private boolean available;
+
+    @OneToOne()
+    @JoinColumn
+    private Driver driver;
+
+    public Cab(int perKmRate, boolean available) {
+        this.perKmRate = perKmRate;
         this.available = available;
-    }
-
-    public void setPerKmRate(int perKmRate) {
-        PerKmRate = perKmRate;
     }
 
     public Cab() {
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    @OneToOne
-    @JoinColumn
-    @JsonIgnoreProperties("cab")
-    private Driver driver;
-
 
     public int getId() {
         return id;
@@ -46,6 +34,22 @@ public class Cab {
         this.id = id;
     }
 
+    public int getPerKmRate() {
+        return perKmRate;
+    }
+
+    public void setPerKmRate(int perKmRate) {
+        this.perKmRate = perKmRate;
+    }
+
+    public boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
     public Driver getDriver() {
         return driver;
     }
@@ -53,23 +57,4 @@ public class Cab {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-
-
-
-    private int PerKmRate;
-
-    @Column(columnDefinition = "TINYINT(1)")
-    private Boolean available;
-
-
 }

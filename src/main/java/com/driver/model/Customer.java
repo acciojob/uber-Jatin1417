@@ -1,84 +1,64 @@
 package com.driver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
 @Entity
-@Table(name = "customer")
 public class Customer {
-     @Id
-     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-     @Column(name = "id", nullable = false)
-     private int CustomerId;
 
-     @ManyToOne
-     @JoinColumn
-     @JsonIgnoreProperties("customers")
-     private Admin admin;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int customerId;
 
-     public Customer() {
-     }
+    private String mobile;
 
-     public TripBooking getTrip() {
-          return trip;
-     }
-
-     public void setTrip(TripBooking trip) {
-          this.trip = trip;
-     }
+    private String password;
 
 
-     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-     @JsonIgnoreProperties("customer")
-     private TripBooking trip;
-
-     private String Mobile;
-
-     public int getCustomerId() {
-          return CustomerId;
-     }
-
-     public void setCustomerId(int customerId) {
-          CustomerId = customerId;
-     }
-
-     public String getMobile() {
-          return Mobile;
-     }
-
-     public void setMobile(String mobile) {
-          Mobile = mobile;
-     }
-
-     public Customer(int customerId, Admin admin, TripBooking trip, String mobile, String password) {
-          CustomerId = customerId;
-          this.admin = admin;
-          this.trip = trip;
-          Mobile = mobile;
-          Password = password;
-     }
-
-     public String getPassword() {
-          return Password;
-     }
-
-     public void setPassword(String password) {
-          Password = password;
-     }
-
-     private String Password;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookingList=new ArrayList<>();
 
 
+    public Customer(String mobile, String password) {
 
+        this.mobile = mobile;
+        this.password = password;
+    }
 
-     public Admin getAdmin() {
-          return admin;
-     }
+    public Customer() {
+    }
 
-     public void setAdmin(Admin admin) {
-          this.admin = admin;
-     }
+    public int getCustomerId() {
+        return customerId;
+    }
 
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
+    }
 }

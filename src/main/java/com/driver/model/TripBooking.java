@@ -1,25 +1,57 @@
 package com.driver.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
-@Table(name = "trip")
 public class TripBooking {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int tripBookingId;
 
+    private String fromLocation;
 
-    public TripStatus getStatus() {
-        return Status;
+    private String toLocation;
+
+    private int distanceInKm;
+
+    @Enumerated(EnumType.STRING)
+    private TripStatus tripStatus;
+
+    private int bill;
+
+    @ManyToOne
+    @JoinColumn
+    private Customer  customer;
+
+    @ManyToOne
+    @JoinColumn
+    private Driver driver;
+
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm, TripStatus tripStatus, int bill) {
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.distanceInKm = distanceInKm;
+        this.tripStatus = tripStatus;
+        this.bill = bill;
     }
 
-    public void setStatus(TripStatus status) {
-        Status = status;
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm, TripStatus tripStatus) {
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.distanceInKm = distanceInKm;
+        this.tripStatus = tripStatus;
+    }
+
+    public TripBooking() {
+    }
+
+    public int getTripBookingId() {
+        return tripBookingId;
+    }
+
+    public void setTripBookingId(int tripBookingId) {
+        this.tripBookingId = tripBookingId;
     }
 
     public String getFromLocation() {
@@ -34,72 +66,32 @@ public class TripBooking {
         return toLocation;
     }
 
-    public int getDistanceInKm() {
-        return DistanceInKm;
-    }
-
-    public void setDistanceInKm(int distanceInKm) {
-        DistanceInKm = distanceInKm;
-    }
-
     public void setToLocation(String toLocation) {
         this.toLocation = toLocation;
     }
 
+    public int getDistanceInKm() {
+        return distanceInKm;
+    }
 
+    public void setDistanceInKm(int distanceInKm) {
+        this.distanceInKm = distanceInKm;
+    }
+
+    public TripStatus getStatus() {
+        return tripStatus;
+    }
+
+    public void setStatus(TripStatus tripStatus) {
+        this.tripStatus = tripStatus;
+    }
 
     public int getBill() {
-        return Bill;
+        return bill;
     }
 
     public void setBill(int bill) {
-        Bill = bill;
-    }
-
-    @Enumerated(EnumType.STRING)
-    private TripStatus Status;
-
-    public int getTripBookingId() {
-        return tripBookingId;
-    }
-
-    public void setTripBookingId(int tripBookingId) {
-        this.tripBookingId = tripBookingId;
-    }
-
-    private String fromLocation;
-
-    private String toLocation;
-
-    private int DistanceInKm;
-
-    private int Bill;
-
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnoreProperties("trip")
-    private Driver driver;
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public TripBooking() {
-    }
-
-    public TripBooking(int tripBookingId, TripStatus tripStatus, String fromLocation, String toLocation, int distanceInKm, int bill, Driver driver, Customer customer) {
-        this.tripBookingId = tripBookingId;
-        this.Status = tripStatus;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        DistanceInKm = distanceInKm;
-        Bill = bill;
-        this.driver = driver;
-        this.customer = customer;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+        this.bill = bill;
     }
 
     public Customer getCustomer() {
@@ -110,9 +102,11 @@ public class TripBooking {
         this.customer = customer;
     }
 
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnoreProperties("trip")
-    private Customer customer;
+    public Driver getDriver() {
+        return driver;
+    }
 
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
 }
