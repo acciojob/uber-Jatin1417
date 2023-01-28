@@ -15,7 +15,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
     List<Customer> getAllcustomers();
 
     @Modifying
-    @Query("delete from customer c where c.CustomerId=:custId ")
+    @Query("delete from Customer c where c.CustomerId =: custId ")
     void delete(int custId);
 
 }
