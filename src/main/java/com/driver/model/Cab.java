@@ -9,10 +9,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cab")
 public class Cab {
-    public Cab(int id, int rateKmpl, Boolean availability) {
+    public int getPerKmRate() {
+        return PerKmRate;
+    }
+
+    public Cab(int id, Driver driver, int perKmRate, Boolean available) {
         this.id = id;
-        this.rateKmpl = rateKmpl;
-        this.available = availability;
+        this.driver = driver;
+        PerKmRate = perKmRate;
+        this.available = available;
+    }
+
+    public void setPerKmRate(int perKmRate) {
+        PerKmRate = perKmRate;
     }
 
     public Cab() {
@@ -45,9 +54,6 @@ public class Cab {
         this.driver = driver;
     }
 
-    public int getRateKmpl() {
-        return rateKmpl;
-    }
 
     public Boolean getAvailable() {
         return available;
@@ -57,13 +63,10 @@ public class Cab {
         this.available = available;
     }
 
-    public void setRateKmpl(int rateKmpl) {
-        this.rateKmpl = rateKmpl;
-    }
 
 
 
-    private int rateKmpl;
+    private int PerKmRate;
 
     @Column(columnDefinition = "TINYINT(1)")
     private Boolean available;

@@ -13,12 +13,13 @@ public class TripBooking {
     @Column(name = "id", nullable = false)
     private int tripBookingId;
 
-    public TripStatus getTripStatus() {
-        return tripStatus;
+
+    public TripStatus getStatus() {
+        return Status;
     }
 
-    public void setTripStatus(TripStatus tripStatus) {
-        this.tripStatus = tripStatus;
+    public void setStatus(TripStatus status) {
+        Status = status;
     }
 
     public String getFromLocation() {
@@ -56,7 +57,7 @@ public class TripBooking {
     }
 
     @Enumerated(EnumType.STRING)
-    private TripStatus tripStatus;
+    private TripStatus Status;
 
     public int getTripBookingId() {
         return tripBookingId;
@@ -88,7 +89,7 @@ public class TripBooking {
 
     public TripBooking(int tripBookingId, TripStatus tripStatus, String fromLocation, String toLocation, int distanceInKm, int bill, Driver driver, Customer customer) {
         this.tripBookingId = tripBookingId;
-        this.tripStatus = tripStatus;
+        this.Status = tripStatus;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         DistanceInKm = distanceInKm;

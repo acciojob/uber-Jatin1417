@@ -11,15 +11,18 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private int AdminId;
 
     public Admin() {
     }
 
-    public Admin(int id, String username, String password) {
-        this.id = id;
+
+    public Admin(int adminId, String username, String password, List<Customer> customers, List<Driver> drivers) {
+        AdminId = adminId;
         this.username = username;
         Password = password;
+        this.customers = customers;
+        this.drivers = drivers;
     }
 
     private String username;
@@ -33,12 +36,21 @@ public class Admin {
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("admin")
     private List<Driver> drivers;
-    public int getId() {
-        return id;
+
+    public int getAdminId() {
+        return AdminId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAdminId(int adminId) {
+        AdminId = adminId;
+    }
+
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     public String getUsername() {
