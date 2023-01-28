@@ -16,6 +16,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 
     @Modifying
     @Query("delete from Customer c where c.CustomerId =: custId ")
-    void delete(int custId);
+    void deleteCustomer(Integer custId);
 
 }

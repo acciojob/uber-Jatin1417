@@ -10,5 +10,5 @@ import com.driver.model.Admin;
 public interface AdminRepository extends JpaRepository<Admin, Integer>{
     @Modifying
     @Query("delete from Admin a where a.AdminId =: adminId")
-    void delete(int adminId);
+    void deleteAdmin(Integer adminId);
 }

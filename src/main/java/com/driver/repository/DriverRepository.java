@@ -17,6 +17,6 @@ public interface DriverRepository extends JpaRepository<Driver, Integer>{
      List<Driver> getAvailableDrivers(boolean availability);
 
      @Modifying
-     @Query("delete from driver d where d.DriverId =:dId")
-     void delete(int Did);
+     @Query("delete from Driver d where d.DriverId =:dId")
+     void removeDriver(Integer Did);
 }
