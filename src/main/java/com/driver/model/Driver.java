@@ -15,7 +15,17 @@ public class Driver {
     private String mobile;
 
     @Column(columnDefinition = "TINYINT(1)")
-    private boolean availability;
+    private boolean available;
+
+    public Driver(int id, String mobile, boolean available, Admin admin, Cab cab, TripBooking trip, String password) {
+        this.id = id;
+        this.mobile = mobile;
+        this.available = available;
+        this.admin = admin;
+        this.cab = cab;
+        this.trip = trip;
+        this.password = password;
+    }
 
     public TripBooking getTrip() {
         return trip;
@@ -54,12 +64,12 @@ public class Driver {
         return id;
     }
 
-    public boolean isAvailability() {
-        return availability;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public Cab getCab() {

@@ -10,7 +10,6 @@ import com.driver.repository.CustomerRepository;
 import com.driver.repository.DriverRepository;
 import com.driver.repository.TripBookingRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,10 +50,12 @@ public class CustomerServiceImpl implements CustomerService {
 		Driver driver = drivers.get(drivers.size()-1);
 		trip.setFromLocation(fromLocation);
 		trip.setToLocation(toLocation);
-		trip.setDistance(distanceInKm);
+		trip.setDistanceInKm(distanceInKm);
 		trip.setTripStatus(TripStatus.CONFIRMED);
         trip.setDriver(driver);
 		trip.setBill(0);
+		Customer customer = customerRepository2.findById(customerId).get();
+		trip.setCustomer(customer);
 		tripBookingRepository2.save(trip);
 		}catch(Exception e){
 			System.out.println("No cab available!");
@@ -68,9 +69,9 @@ public class CustomerServiceImpl implements CustomerService {
 		TripBooking trip = tripBookingRepository2.findById(tripId).get();
 		trip.setTripStatus(TripStatus.CANCELED);
 		Driver driver = trip.getDriver();
-		driver.setAvailability(true);
+		driver.setAvailable(true);
 		Cab cab = driver.getCab();
-		cab.setAvailability(true);
+		cab.setAvailable(true);
 		trip.setBill(0);
 		driverRepository2.save(driver);
 		cabRepository.save(cab);
@@ -85,11 +86,11 @@ public class CustomerServiceImpl implements CustomerService {
 		TripBooking trip = tripBookingRepository2.findById(tripId).get();
         trip.setTripStatus(TripStatus.COMPLETED);
 		Driver driver = trip.getDriver();
-		driver.setAvailability(true);
+		driver.setAvailable(true);
 		Cab cab = driver.getCab();
-		cab.setAvailability(true);
+		cab.setAvailable(true);
 
-		int bill = cab.getRateKmpl()*trip.getDistance();
+		int bill = cab.getRateKmpl()*trip.getDistanceInKm();
 		trip.setBill(bill);
 
 		tripBookingRepository2.save(trip);

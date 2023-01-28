@@ -13,7 +13,7 @@ public interface DriverRepository extends JpaRepository<Driver, Integer>{
      @Query("select * from driver")
      List<Driver> getallDriver();
 
-     @Query(value = "select * from driver d where d.availability =:availabiilty order by d.id DESC", nativeQuery = true)
+     @Query(value = "select * from driver d where d.available =:availabiilty order by d.id DESC", nativeQuery = true)
      List<Driver> getAvailableDrivers(boolean availability);
 
      @Modifying

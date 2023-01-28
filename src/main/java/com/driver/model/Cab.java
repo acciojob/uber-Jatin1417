@@ -12,7 +12,7 @@ public class Cab {
     public Cab(int id, int rateKmpl, Boolean availability) {
         this.id = id;
         this.rateKmpl = rateKmpl;
-        this.availability = availability;
+        this.available = availability;
     }
 
     public Cab() {
@@ -49,22 +49,24 @@ public class Cab {
         return rateKmpl;
     }
 
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
     public void setRateKmpl(int rateKmpl) {
         this.rateKmpl = rateKmpl;
     }
 
-    public Boolean getAvailability() {
-        return availability;
-    }
 
-    public void setAvailability(Boolean availability) {
-        this.availability = availability;
-    }
 
     private int rateKmpl;
 
     @Column(columnDefinition = "TINYINT(1)")
-    private Boolean availability;
+    private Boolean available;
 
 
 }
